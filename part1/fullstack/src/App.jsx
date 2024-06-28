@@ -36,7 +36,15 @@ const App = () => {
     {
       setBad(bad+1)
     }  
-
+  if(good+bad+neutral == 0){
+    return (
+      <div>
+      <Button handleClick = {increaseGood} text = 'good'/>
+      <Button handleClick = {increaseNeutral} text = 'neutral'/>
+      <Button handleClick = {increaseBad} text = 'bad'/>
+      </div>
+    )
+  }
   return (
     <div>
       <Button handleClick = {increaseGood} text = 'good'/>
