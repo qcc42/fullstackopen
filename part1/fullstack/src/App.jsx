@@ -19,20 +19,22 @@ const App = () => {
     </button>
   )
   const randInd = () => {
-    setSelected(Math.round(Math.random()*anecdotes.length))
+    setSelected(Math.floor(Math.random()*anecdotes.length))
   }
   const onVote = () => {
-    const temp = {...votes}
+    const temp = [...votes]
     temp[selected]++
-    setVotes(temp)
+    setVotes([...temp])
   }
-
+  console.log(selected)
   return (
     <div>
       <Button text = "Tell me an anecdote!" handleClick = {randInd}/>
       <p>{anecdotes[selected]}</p> 
       <p>has {votes[selected]} votes</p>
       <Button text = "Vote" handleClick = {onVote}/> 
+      <h1>Anecdote of the day</h1>
+      <p>{anecdotes[votes.indexOf(Math.max(...votes))]}</p>
 
 
     </div>
