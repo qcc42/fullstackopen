@@ -1,47 +1,44 @@
-import {useState} from 'react'
-import Note from './components/Note'
+import { useState } from 'react'
 
-const App = (props) => {
-  const [notes, setNotes] = useState([])
-  const [newNote, setNewNote] = useState(
-    'a new note...'
-  )
-  const [showAll, setShowAll] = useState(false)
-  const addNote = (event) => {
+const App = () => {
+  const [persons, setPersons] = useState([
+    { number: 'Arto Hellas',
+      id: 0,
+     }
+  ]) 
+  const [newName, setNewName] = useState('')
+  const addNumber = (event) => {
     event.preventDefault()
-    const noteObject = {
-      content: newNote,
-      important: Math.random() < 0.5,
-      id: notes.length +1,
+    const numberObject = {
+      number: newName,
+      id: persons.length +1,
     }
-    setNotes(notes.concat(noteObject))
-    setNewNote('')
+    setPersons(persons.concat(numberObject))
+    setNewName('')
   }
 
-  const handleNoteChange = (event) => {
-    console.log(event.target.value)
-    setNewNote(event.target.value)
-  }
 
-  const notesToShow = showAll ? notes : notes.filter(note => note.important)
+  const handleInputChange = (event) => {
+    setNewName(event.target.value)
+  }
+  
+
 
   return (
     <div>
-      <h1>Notes</h1>
-      <div>
-        <button onClick = {() => setShowAll(!showAll)}>
-          show {showAll ? 'important' : 'all'}
-          </button>
+      <h2>Phonebook</h2>
+      <form onSubmit = {addNumber}>
+        <div>
+          name: <input value = {newName} onChange = {handleInputChange} />
         </div>
+        <div>
+          <button type="submit">add</button>
+        </div>
+      </form>
+      <h2>Numbers</h2>
       <ul>
-        {notesToShow.map(note => 
-          <Note key={note.id} note={note} />
-        )}
+          {persons.map((person) => <li key = {person.id}> {person.number} </li>)}
       </ul>
-      <form onSubmit={addNote}>
-        <input value = {newNote} onChange = {handleNoteChange}/>
-        <button type="submit">save</button>
-      </form>   
     </div>
   )
 }
