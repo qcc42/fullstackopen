@@ -27,7 +27,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit = {addNumber}>
+      <form onSubmit = {!(persons.map((person) => person.number)).includes(newName) ? addNumber : (event) => {event.preventDefault(); alert(newName.concat(' is already in the phonebook'));} }>
         <div>
           name: <input value = {newName} onChange = {handleInputChange} />
         </div>
