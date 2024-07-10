@@ -2,12 +2,14 @@ import { useState } from 'react'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { number: 'Arto Hellas',
+    { name: 'Mårten Jern',
+      number: '456456466',
       id: 0,
      }
   ]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [filterKey, setFilterKey] = useState('')
   const addNumber = (event) => {
     event.preventDefault()
     const numberObject = {
@@ -27,13 +29,22 @@ const App = () => {
   const handleInputChange2 = (event) => {
     setNewNumber(event.target.value)
   }
-  
+  const handleFilterChange = (event) => {
+    setFilterKey(event.target.value)
+  }
+
 
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <div>
+        <form>
+          filter: <input onChange = {handleFilterChange}/>
+          </form>
+      </div>
       <form onSubmit = {!(persons.map((person) => person.number)).includes(newName) ? addNumber : (event) => {event.preventDefault(); alert(newName.concat(' is already in the phonebook'));} }>
+
         <div>
           name: <input value = {newName} onChange = {handleInputChange1} />
         </div>
@@ -46,7 +57,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <ul>
-          {persons.map((person) => <li key = {person.id}> {person.name} {person.number} </li>)}
+          {persons.filter((person) => person.name.includes(filterKey)).map((person) => <li key = {person.id}> {person.name} {person.number} </li>)}
       </ul>
     </div>
   )
