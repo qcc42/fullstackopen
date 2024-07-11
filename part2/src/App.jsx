@@ -1,23 +1,20 @@
 import { useState } from 'react'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
+import Person from './components/Person'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Mårten Jern',
-      number: '456456466',
-      id: 0,
-     }
+  const [personsarr, setPersons] = useState([
+    <Person name = 'Mårten Jern' number = '040' id = {0}/>
   ]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filterKey, setFilterKey] = useState('')
   const addNumber = (event) => {
     event.preventDefault()
-    const numberObject = {
-      name: newName,
-      number: newNumber,
-      id: persons.length +1,
-    }
-    setPersons(persons.concat(numberObject))
+    const personObject = <Person name = {newName} number = {newNumber} id = {personsarr.length + 1}/>
+    setPersons(personsarr.concat(personObject))
     setNewName('')
     setNewNumber('')
   }
@@ -32,35 +29,22 @@ const App = () => {
   const handleFilterChange = (event) => {
     setFilterKey(event.target.value)
   }
-
-
-
-  return (
-    <div>
-      <h2>Phonebook</h2>
+ 
+    return (
       <div>
-        <form>
-          filter: <input onChange = {handleFilterChange}/>
-          </form>
-      </div>
-      <form onSubmit = {!(persons.map((person) => person.number)).includes(newName) ? addNumber : (event) => {event.preventDefault(); alert(newName.concat(' is already in the phonebook'));} }>
+        <h2>Phonebook</h2>
+  
+        <Filter onChange = {handleFilterChange}/>
 
-        <div>
-          name: <input value = {newName} onChange = {handleInputChange1} />
-        </div>
-        <div>
-          number: <input value ={newNumber} onChange = {handleInputChange2}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <ul>
-          {persons.filter((person) => person.name.includes(filterKey)).map((person) => <li key = {person.id}> {person.name} {person.number} </li>)}
-      </ul>
-    </div>
-  )
+        <h3>Add a new</h3>
+  
+        <PersonForm handleInputChange1 = {handleInputChange1} handleInputChange2 = {handleInputChange2} handleFilterChange = {handleFilterChange} persons = {personsarr} newNumber = {newNumber} newName = {newName} filterKey = {filterKey} addNumber = {addNumber}/>
+  
+        <h3>Numbers</h3>
+        
+        <Persons personsarr = {personsarr} filterKey = {filterKey}/>
+      </div>
+    )
 }
 
 export default App
