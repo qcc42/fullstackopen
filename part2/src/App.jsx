@@ -3,7 +3,7 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import Person from './components/Person'
-
+// this is assignment 2.10
 const App = () => {
   const [personsarr, setPersons] = useState([
     <Person name = 'Mårten Jern' number = '040' id = {0}/>
