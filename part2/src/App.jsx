@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import axios from 'axios'
+import { useState, useEffect } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import Person from './components/Person'
-// this is assignment 2.10
+
 const App = () => {
   const [personsarr, setPersons] = useState([
     <Person name = 'Mårten Jern' number = '040' id = {0}/>
@@ -19,6 +20,20 @@ const App = () => {
     setNewNumber('')
   }
 
+
+  useEffect(() =>
+    {
+      axios
+        .get('http://localhost:3001/persons')
+        .then(response =>{
+            setPersons(
+              personsarr.concat(response.data.map(person => <Person name = {person.name} id = {person.id} number = {person.number}/>))
+            )      
+          
+          }
+        )
+  
+    }, [])
 
   const handleInputChange1 = (event) => {
     setNewName(event.target.value)
@@ -41,7 +56,6 @@ const App = () => {
         <PersonForm handleInputChange1 = {handleInputChange1} handleInputChange2 = {handleInputChange2} handleFilterChange = {handleFilterChange} persons = {personsarr} newNumber = {newNumber} newName = {newName} filterKey = {filterKey} addNumber = {addNumber}/>
   
         <h3>Numbers</h3>
-        
         <Persons personsarr = {personsarr} filterKey = {filterKey}/>
       </div>
     )
