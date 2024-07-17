@@ -1,5 +1,5 @@
-import axios from 'axios'
 import { useState, useEffect } from 'react'
+import personService from './services/persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
@@ -12,26 +12,29 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filterKey, setFilterKey] = useState('')
+  
   const addNumber = (event) => {
     event.preventDefault()
-    const personObject = <Person name = {newName} number = {newNumber} id = {personsarr.length + 1}/>
-    setPersons(personsarr.concat(personObject))
-    setNewName('')
-    setNewNumber('')
+    const personObject = <Person name = {newName} number = {newNumber} id ={personsarr.length+1}/>
+    personService
+    .create({name: newName, number: newNumber, id: personsarr.length+1})
+    .then(() => {
+      setPersons(personsarr.concat(personObject))
+      setNewName('')
+      setNewNumber('')  
+    }
+    )
   }
 
 
   useEffect(() =>
     {
-      axios
-        .get('http://localhost:3001/persons')
-        .then(response =>{
-            setPersons(
-              personsarr.concat(response.data.map(person => <Person name = {person.name} id = {person.id} number = {person.number}/>))
-            )      
-          
-          }
-        )
+      personService.getAll()
+      .then(initialNotes => {
+        console.log(initialNotes)
+        setPersons(initialNotes.map(person => <Person name = {person.name} number = {person.number} id = {person.id}/>))
+        }     
+      )
   
     }, [])
 

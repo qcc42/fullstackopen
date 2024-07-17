@@ -1,7 +1,7 @@
-const Person = ({name, number, id}) => {
+const Person = (props) => {
     return(
-        <li key = {id}>
-            {name} {number} 
+        <li>
+            {props.name} {props.number} 
         </li>
     )
 }
