@@ -1,11 +1,12 @@
 
 
-const Persons = ({personsarr, filterKey}) => {
-
+const Persons = ({personsarr, filterKey, removeNumber}) => {
+    const filteredpersons = personsarr.filter(person => person.props.name.includes(filterKey))
+    const mappedtohtml = filteredpersons.map(person => <tr><td>{person}</td><button onClick = {(event) => removeNumber(person.props.id, event)}>Delete</button></tr>)
     return(
-    <ul>
-        {personsarr.filter((person) => person.props.name.includes(filterKey))}
-    </ul>
+    <table>
+        {mappedtohtml}
+    </table>
     )
 }
 

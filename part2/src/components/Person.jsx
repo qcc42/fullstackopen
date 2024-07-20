@@ -1,8 +1,8 @@
 const Person = (props) => {
     return(
-        <li>
-            {props.name} {props.number} 
-        </li>
+
+            <td>{props.name} {props.number}</td>
+    
     )
 }
 
