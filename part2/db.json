@@ -1,14 +1,34 @@
 {
-  "persons": [
+  "notes": [
     {
-      "id": "6f9b",
-      "name": "asd",
-      "number": "123"
+      "id": "f0bf",
+      "content": "",
+      "important": false
     },
     {
-      "id": "db75",
-      "name": "Mårten Jern",
-      "number": "040"
+      "id": "073e",
+      "content": "sdfsdf",
+      "important": false
+    },
+    {
+      "id": "d0a9",
+      "content": "sdgsfdgdefgesg",
+      "important": false
+    },
+    {
+      "id": "8dfd",
+      "content": "dfg",
+      "important": true
+    },
+    {
+      "id": "8a62",
+      "content": "sdf",
+      "important": false
+    },
+    {
+      "id": "df06",
+      "content": "asasd",
+      "important": false
     }
   ]
 }
